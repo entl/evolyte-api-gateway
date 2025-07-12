@@ -1,10 +1,11 @@
 package middleware
 
 import (
+	"strings"
+
 	"github.com/entl/evolyte-api-gateway/internal/errors"
 	"github.com/entl/evolyte-api-gateway/internal/services"
 	"github.com/labstack/echo/v4"
-	"strings"
 )
 
 func JWTAuth(jwtSvc *services.JwtService) echo.MiddlewareFunc {

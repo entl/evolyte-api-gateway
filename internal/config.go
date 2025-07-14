@@ -1,24 +1,27 @@
 package internal
 
 import (
-	"github.com/caarlos0/env/v11"
-	"github.com/joho/godotenv"
-	"gopkg.in/yaml.v3"
 	"io"
 	"log"
 	"os"
+
+	"github.com/caarlos0/env/v11"
+	"github.com/joho/godotenv"
+	"gopkg.in/yaml.v3"
 )
 
 type Config struct {
-	Gateway GatewayConfig
-	JWT     JWTConfig
+	Gateway  GatewayConfig
+	JWT      JWTConfig
+	Postgres Postgres
 }
 
 type RouteConfig struct {
-	FromPath     string `yaml:"from_path"`
-	ToPath       string `yaml:"to_path"`
-	Method       string `yaml:"method"`
-	AuthRequired bool   `yaml:"auth_required"`
+	FromPath     string   `yaml:"from_path"`
+	ToPath       string   `yaml:"to_path"`
+	Method       string   `yaml:"method"`
+	AuthRequired bool     `yaml:"auth_required"`
+	AllowedRoles []string `yaml:"allowed_roles"`
 }
 
 type ServiceConfig struct {
@@ -36,6 +39,14 @@ type JWTConfig struct {
 	JWTAlgorithm                  string `env:"JWT_ALGORITHM,required"`
 	JWTTokenExpirationTime        int64  `env:"JWT_TOKEN_EXPIRATION_TIME,required"`
 	JWTRefreshTokenExpirationTime int64  `env:"JWT_REFRESH_TOKEN_EXPIRATION_TIME,required"`
+}
+
+type Postgres struct {
+	Host     string `env:"POSTGRES_HOST,required"`
+	Port     int    `env:"POSTGRES_PORT,required"`
+	Username string `env:"POSTGRES_USERNAME,required"`
+	Password string `env:"POSTGRES_PASSWORD,required"`
+	Database string `env:"POSTGRES_DATABASE,required"`
 }
 
 func LoadConfig(envFile string, proxyConfigFile string) (*Config, error) {

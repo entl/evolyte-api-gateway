@@ -17,7 +17,7 @@ func NewRouter(cfg internal.Config) *echo.Echo {
 		for _, r := range svc.Routes {
 			handler := proxy.NewProxy(svc.Backend, r.FromPath, r.ToPath)
 			if r.AuthRequired {
-				e.Add(r.Method, r.FromPath, handler, middleware.JWTAuth(jwtSvc))
+				e.Add(r.Method, r.FromPath, handler, middleware.JWTAuth(jwtSvc), middleware.RoleMiddleware(r.AllowedRoles))
 			} else {
 				e.Add(r.Method, r.FromPath, handler)
 			}

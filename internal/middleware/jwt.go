@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"strconv"
 	"strings"
 
 	"github.com/entl/evolyte-api-gateway/internal/errors"
@@ -20,6 +21,16 @@ func JWTAuth(jwtSvc *services.JwtService) echo.MiddlewareFunc {
 			if err != nil || !valid {
 				return errors.ErrInvalidToken
 			}
+
+			claims, err := jwtSvc.ExtractClaims(token)
+			if err != nil {
+				return errors.ErrInvalidToken
+			}
+
+			c.Set("role", claims["role"])
+			c.Set("user_id", claims["user_id"])
+
+			c.Request().Header.Set("X-User-ID", strconv.FormatFloat(claims["user_id"].(float64), 'f', -1, 64))
 			return next(c)
 		}
 	}

@@ -14,6 +14,7 @@ type Config struct {
 	Gateway  GatewayConfig
 	JWT      JWTConfig
 	Postgres Postgres
+	Redis    Redis
 }
 
 type RouteConfig struct {
@@ -47,6 +48,14 @@ type Postgres struct {
 	Username string `env:"POSTGRES_USERNAME,required"`
 	Password string `env:"POSTGRES_PASSWORD,required"`
 	Database string `env:"POSTGRES_DATABASE,required"`
+}
+
+type Redis struct {
+	Host        string `env:"REDIS_HOST,required"`
+	Port        int    `env:"REDIS_PORT,required"`
+	Password    string `env:"REDIS_PASSWORD,required"`
+	CacheDB     int    `env:"REDIS_CACHE_DB,required"`
+	RateLimitDB int    `env:"REDIS_RATE_LIMIT_DB,required"`
 }
 
 func LoadConfig(envFile string, proxyConfigFile string) (*Config, error) {

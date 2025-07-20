@@ -4,7 +4,9 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"log/slog"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/entl/evolyte-api-gateway/internal"
@@ -15,6 +17,9 @@ import (
 )
 
 func main() {
+	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
+	slog.SetDefault(logger)
+
 	ctx := context.Background()
 	cfg, err := internal.LoadConfig(".env", "config.docker.yaml")
 	if err != nil {
@@ -43,7 +48,7 @@ func main() {
 		}
 
 		if he, ok := err.(*echo.HTTPError); ok {
-			c.JSON(he.Code, map[string]interface{}{"error_code": he.Code, "message": he.Message})
+			c.JSON(he.Code, map[string]any{"error_code": he.Code, "message": he.Message})
 			return
 		}
 

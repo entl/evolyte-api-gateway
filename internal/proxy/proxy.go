@@ -2,11 +2,13 @@ package proxy
 
 import (
 	"fmt"
-	"github.com/labstack/echo/v4"
+	"log/slog"
 	"net/http/httputil"
 	"net/url"
 	"path"
 	"strings"
+
+	"github.com/labstack/echo/v4"
 )
 
 // NewProxy returns an Echo handler that forwards requests to targetHost
@@ -29,12 +31,11 @@ func NewProxy(targetHost, fromPath, toPath string) echo.HandlerFunc {
 			// Join to backend path
 			newPath := path.Join(toPrefix, suffix)
 			c.Request().URL.Path = newPath
-
-			fmt.Println("Proxying:", reqPath, "=>", newPath, "to", targetHost)
+			slog.Info(fmt.Sprintf("Proxying: %s => %s to %s", reqPath, newPath, targetHost))
 		} else {
 			// No wildcard: force toPath as fixed path
 			c.Request().URL.Path = toPath
-			fmt.Println("Proxying:", reqPath, "=>", toPath, "to", targetHost)
+			slog.Info(fmt.Sprintf("Proxying: %s => %s to %s", reqPath, toPath, targetHost))
 		}
 
 		proxy.ServeHTTP(c.Response(), c.Request())

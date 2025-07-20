@@ -1,0 +1,11 @@
+global:
+  scrape_interval: 15s     # how often do you want it to scrape
+
+scrape_configs:            # tells which targets it should monitor.
+  - job_name: "prometheus"
+    static_configs:
+    - targets: ["localhost:9090"]
+  
+  - job_name: "evolyte-gateway"
+    static_configs:
+    - targets: ["gateway:8080"]

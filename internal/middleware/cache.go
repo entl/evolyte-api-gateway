@@ -50,7 +50,7 @@ func CacheMiddleware(cacheSvc services.CacheService) echo.MiddlewareFunc {
 			if (*rec.Result())["StatusCode"] == http.StatusOK {
 				slog.Info(fmt.Sprintf("Caching response for key: %s", key))
 				responseBody := string((*rec.Result())["Body"].([]byte))
-				cacheSvc.Set(c.Request().Context(), key, responseBody, 5*time.Minute)
+				cacheSvc.Set(c.Request().Context(), key, responseBody, 60*time.Second)
 			}
 
 			return nil

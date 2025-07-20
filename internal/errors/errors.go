@@ -17,10 +17,12 @@ func (e *AppError) Error() string {
 
 // Predefined errors.
 var (
-	ErrUnauthorized   = &AppError{Code: http.StatusUnauthorized, Message: "unauthorized"}
-	ErrInvalidToken   = &AppError{Code: http.StatusUnauthorized, Message: "invalid or expired token"}
-	ErrHeaderRequired = &AppError{Code: http.StatusBadRequest, Message: "required header is missing"}
-	ErrForbidden      = &AppError{Code: http.StatusForbidden, Message: "forbidden"}
-	ErrBadRequest     = &AppError{Code: http.StatusBadRequest, Message: "bad request"}
-	ErrInternal       = &AppError{Code: http.StatusInternalServerError, Message: "internal server error"}
+	ErrUnauthorized      = &AppError{Code: http.StatusUnauthorized, Message: "unauthorized"}
+	ErrInvalidToken      = &AppError{Code: http.StatusUnauthorized, Message: "invalid or expired token"}
+	ErrHeaderRequired    = &AppError{Code: http.StatusBadRequest, Message: "required header is missing"}
+	ErrForbidden         = &AppError{Code: http.StatusForbidden, Message: "forbidden"}
+	ErrBadRequest        = &AppError{Code: http.StatusBadRequest, Message: "bad request"}
+	ErrInternal          = &AppError{Code: http.StatusInternalServerError, Message: "internal server error"}
+	ErrRateLimitExceeded = &AppError{Code: http.StatusTooManyRequests, Message: "rate limit exceeded"}
+	ErrExtractorError    = &AppError{Code: http.StatusForbidden, Message: "error while extracting identifier"}
 )

@@ -1,5 +1,5 @@
 services:
-  app:
+  gateway:
     build:
       context: .
       dockerfile: Dockerfile
@@ -8,6 +8,24 @@ services:
     image: evolyte-api-gateway:latest
     ports:
       - "8080:8080" 
+    restart: unless-stopped
+    networks:
+      - sharedApiNetwork
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+    networks:
+      - sharedApiNetwork
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
     restart: unless-stopped
     networks:
       - sharedApiNetwork

@@ -13,6 +13,7 @@ import (
 	"github.com/entl/evolyte-api-gateway/internal/errors"
 	"github.com/entl/evolyte-api-gateway/internal/routes"
 	"github.com/jackc/pgx/v5"
+	"github.com/labstack/echo-contrib/echoprometheus"
 	"github.com/labstack/echo/v4"
 )
 
@@ -40,6 +41,8 @@ func main() {
 	defer conn.Close(ctx)
 
 	e := routes.NewRouter(*cfg)
+	e.Use(echoprometheus.NewMiddleware("evolyte_gateway"))
+	e.GET("/metrics", echoprometheus.NewHandler())
 
 	e.HTTPErrorHandler = func(err error, c echo.Context) {
 		if appErr, ok := err.(*errors.AppError); ok {

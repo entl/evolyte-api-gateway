@@ -1,5 +1,16 @@
 # API Gateway
 
+![Go](https://img.shields.io/badge/Go-1.22-blue?logo=go&logoColor=white)
+![Echo](https://img.shields.io/badge/Echo_Framework-Web-blue?logo=go)
+![SQLC](https://img.shields.io/badge/sqlc-SQL%20Codegen-4B8BBE?logo=postgresql)
+![Redis](https://img.shields.io/badge/Redis-Cache-DC382D?logo=redis&logoColor=white)
+![Prometheus](https://img.shields.io/badge/Prometheus-Monitoring-orange?logo=prometheus)
+![Grafana](https://img.shields.io/badge/Grafana-Dashboard-F46800?logo=grafana)
+![Docker](https://img.shields.io/badge/Docker-Container-2496ED?logo=docker)
+![Elasticsearch](https://img.shields.io/badge/Elasticsearch-Search-005571?logo=elasticsearch)
+![Kibana](https://img.shields.io/badge/Kibana-Logs-005571?logo=kibana)
+
+---
 A lightweight reverse-proxy written in Go that provides centralized **JWT authentication**, **role-based header injection**, and **response caching** for GET requests via Redis.  
 It sits in front of micro-services, validating each request and forwarding it to the appropriate backend while shielding internal endpoints from direct exposure.
 

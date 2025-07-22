@@ -1,6 +1,6 @@
 # API Gateway
 
-![Go](https://img.shields.io/badge/Go-1.22-blue?logo=go&logoColor=white)
+![Go](https://img.shields.io/badge/Go-1.23-blue?logo=go&logoColor=white)
 ![Echo](https://img.shields.io/badge/Echo_Framework-Web-blue?logo=go)
 ![SQLC](https://img.shields.io/badge/sqlc-SQL%20Codegen-4B8BBE?logo=postgresql)
 ![Redis](https://img.shields.io/badge/Redis-Cache-DC382D?logo=redis&logoColor=white)

@@ -9,6 +9,9 @@ services:
     ports:
       - "8080:8080" 
     restart: unless-stopped
+    volumes:
+      - .:/app
+      - air-cache:/app/tmp
     networks:
       - sharedApiNetwork
   prometheus:
@@ -27,9 +30,14 @@ services:
     ports:
       - "3000:3000"
     restart: unless-stopped
+    volumes:
+      - grafana-storage:/var/lib/grafana
     networks:
       - sharedApiNetwork
 
+volumes:
+  grafana-storage:
+  air-cache:
 
 networks:
   sharedApiNetwork:

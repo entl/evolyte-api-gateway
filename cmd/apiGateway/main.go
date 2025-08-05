@@ -15,6 +15,7 @@ import (
 	"github.com/jackc/pgx/v5"
 	"github.com/labstack/echo-contrib/echoprometheus"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
@@ -42,6 +43,12 @@ func main() {
 
 	e := routes.NewRouter(*cfg)
 	e.Use(echoprometheus.NewMiddleware("evolyte_gateway"))
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins:     []string{"*"},
+		AllowMethods:     []string{"*"},
+		AllowHeaders:     []string{"*"},
+		AllowCredentials: true,
+	}))
 	e.GET("/metrics", echoprometheus.NewHandler())
 
 	e.HTTPErrorHandler = func(err error, c echo.Context) {

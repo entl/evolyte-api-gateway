@@ -18,21 +18,18 @@ type Config struct {
 }
 
 type RouteConfig struct {
-	FromPath     string   `yaml:"from_path"`
-	ToPath       string   `yaml:"to_path"`
-	Method       string   `yaml:"method"`
-	AuthRequired bool     `yaml:"auth_required"`
-	AllowedRoles []string `yaml:"allowed_roles"`
+	Method     string `yaml:"method"`
+	PathPrefix string `yaml:"path_prefix"`
 }
 
 type ServiceConfig struct {
+	Name         string        `yaml:"name"`
 	Backend      string        `yaml:"backend"`
-	PublicPrefix string        `yaml:"public_prefix"`
-	Routes       []RouteConfig `yaml:"routes"`
+	PublicRoutes []RouteConfig `yaml:"public_routes"`
 }
 
 type GatewayConfig struct {
-	Services map[string]ServiceConfig `yaml:"services"`
+	Services []ServiceConfig `yaml:"services"`
 }
 
 type JWTConfig struct {
